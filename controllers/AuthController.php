@@ -13,7 +13,7 @@ if (isset($_POST['register'])) {
     // $image = $_POST['image'];
 
 
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
     $db->busyTimeout(5000);
 
     $sql = 'INSERT INTO users(fullname, displayname, email, phone, password, description,image) 
@@ -48,7 +48,8 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
     $db->busyTimeout(5000);
     
     $sql = 'SELECT * FROM users WHERE email = :email 
@@ -64,18 +65,21 @@ if (isset($_POST['login'])) {
 
     if($row[0] != ""){
 
-        header('location: ../user/dashboard.php');
+       
         $_SESSION['login_status'] = "true";
         $_SESSION['user_id'] = $row[0];
         $_SESSION['full_name'] = $row[1];
         $_SESSION['display_name'] = $row[2];
         $_SESSION['email'] = $row[3];
+
+        header('location: ../user/dashboard.php');
        
     } else {
         $_SESSION['login_error'] = "Login Failed ! Invalid Input !!";
         header('location: index.php');
     }
 
+    echo $_SESSION['user_id'];
    
     $db->close();
     unset($db);
