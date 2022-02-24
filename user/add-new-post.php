@@ -6,8 +6,6 @@
         <div class="card mt-5" style="box-shadow: 0 0 30px #c5cbed;">
           <div class="card-body">
             <img src="./assets/images/logo.png" style="margin-bottom: -50px; margin-top: -50px; margin-left: 90px;" />
-           
-           <?php echo $_SESSION['login_status'] ?>
                 <div class="col-md-12 p-4">
                   <form action="../controllers//PostController.php" method="POST" enctype="multipart/form-data">
                   <div class="mb-3">
@@ -20,6 +18,13 @@
                       <input type="text" name="displayname" placeholder="Enter Post Content" class="form-control"
                         id="fullname">
                     </div>
+
+                    <div class="mb-3">
+                      <label for="fullname" class="form-label">Image</label>
+                      <input type="file" name="image" placeholder="Select Image..." class="form-control"
+                        id="image">
+                    </div>
+
                     <!-- <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Email Address</label>
                       <input type="email" name="email" placeholder="Enter Your Email Address" class="form-control"

@@ -28,9 +28,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item mr-5">
-          <a class="nav-link" href="../user/add-new-post.php">Add New Post</a>
-        </li>
+        
+
+        <?php if(!$_SESSION['is_admin']) { 
+         echo '<li class="nav-item mr-5">
+         <a class="nav-link" href="../user/add-new-post.php">Add New Post</a>
+       </li>';
+          } ?>
+
+        <?php if($_SESSION['is_admin']) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../admin/users.php">Users</a></li>';
+          } ?>
+
+<?php if($_SESSION['is_admin']) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../admin/dashboard.php">Posts</a></li>';
+          } ?>
+
+<?php if($_SESSION['login_status']) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../logout.php">Logout</a></li>';
+          } ?>
       </ul>
     </div>
  

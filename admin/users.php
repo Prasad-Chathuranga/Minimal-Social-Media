@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if( $_SESSION['login_status'] == true){ ?>
+if( $_SESSION['login_status'] = true && $_SESSION['is_admin'] = true){ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,31 +25,62 @@ if( $_SESSION['login_status'] == true){ ?>
 </body>
 
 <div class="container mt-5">
-<h4 class="text-center">News Feed</h4>
+<h4 class="text-center">Users List</h4>
   <div class="row mt-5">
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Image</th>
+      <th scope="col">Status</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
 <?php 
   $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
   $db->busyTimeout(5000);
 
-$sql = "SELECT * FROM posts WHERE status = 1";
+$sql = "SELECT * FROM users";
     $results = $db->query($sql);
     while($row = $results->fetchArray(SQLITE3_ASSOC) ) {
          ?>
 
+    <tr>
+      <td><?php echo $row['id'] ?></td>
+      <td><?php echo $row['fullname'] ?></td>
+      <td><?php echo $row['displayname'] ?></td>
+      <td><?php echo $row['email'] ?></td>
+      <td><img src='../assets/images/uploads/posts/<?php echo $row["image"] ?>'  width="120" height="100" alt="..."></td>
+      <td><?php 
+      if($row['status'] == 1){
+      
+          echo "Active"; 
+      }else  if($row['status'] == 0){
+              echo "Deactivated";
+              } ?></td>
 
-    <div class="col-sm">
-    <div class="card mt-2 mb-2" style="width: 18rem;">
-    <div class="card-header">
-    <h5 class="card-title"> <?php echo $row['title'] ?></h5>
-    </div>
-  <img src='../assets/images/uploads/posts/<?php echo $row["image"] ?>'  class="card-img-top" width="200" height="200" alt="...">
-  <div class="card-body">
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-     
-    </div>
+              <td>
+              <?php 
+              if($row['status'] == 1){ 
+      
+               echo '<button class="btn btn-danger">Deactivate</button>';
+            }else{
+                echo '<button class="btn btn-success">Activate</button>';
+            }  ?>
+              
+    
+                  
+              </td>
+    </tr>
+  
     <?php } ?>
+    </tbody>
+</table>
   </div>
 </div>
 

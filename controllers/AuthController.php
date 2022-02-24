@@ -65,8 +65,8 @@ if (isset($_POST['login'])) {
 
     if($row[0] != ""){
 
-       
         $_SESSION['login_status'] = "true";
+        $_SESSION['is_admin'] = false;
         $_SESSION['user_id'] = $row[0];
         $_SESSION['full_name'] = $row[1];
         $_SESSION['display_name'] = $row[2];
@@ -75,11 +75,31 @@ if (isset($_POST['login'])) {
         header('location: ../user/dashboard.php');
        
     } else {
-        $_SESSION['login_error'] = "Login Failed ! Invalid Input !!";
-        header('location: index.php');
+        // $_SESSION['login_error'] = "Login Failed ! Invalid Input !!";
+        // header('location: index.php');
+
+        $sql = 'SELECT * FROM admin WHERE email = :email 
+    AND password = :password ';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':email',$email);
+    $stmt->bindParam(':password',$password);
+    
+
+    $result = $stmt->execute();
+    $row = $result->fetchArray();
+
+    if($row[0] != ""){
+
+        $_SESSION['login_status'] = "true";
+        $_SESSION['is_admin'] = true;
+      
+
+        header('location: ../admin/dashboard.php');
     }
 
-    echo $_SESSION['user_id'];
+    }
+
    
     $db->close();
     unset($db);
