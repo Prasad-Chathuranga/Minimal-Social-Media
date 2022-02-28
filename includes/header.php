@@ -47,6 +47,10 @@
 <?php if($_SESSION['login_status']) { 
          echo '<li class="nav-item mr-5"><a class="nav-link" href="../logout.php">Logout</a></li>';
           } ?>
+
+<?php if($_SESSION['login_status']) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../user/friends-list.php">Friends</a></li>';
+          } ?>
       </ul>
     </div>
  

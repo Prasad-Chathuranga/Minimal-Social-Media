@@ -32,7 +32,7 @@ if( $_SESSION['login_status'] == true){ ?>
 </body>
 
 <div class="container mt-5">
-<h4 class="text-center">News Feed</h4>
+<h4 class="text-center">Friends</h4>
   <div class="row mt-5">
 <?php 
     $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
@@ -40,7 +40,7 @@ if( $_SESSION['login_status'] == true){ ?>
 //   $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
   $db->busyTimeout(5000);
 
-$sql = "SELECT * FROM posts WHERE status = 1";
+$sql = "SELECT * FROM users WHERE status = 1";
     $results = $db->query($sql);
     while($row = $results->fetchArray(SQLITE3_ASSOC) ) {
          ?>
@@ -49,11 +49,12 @@ $sql = "SELECT * FROM posts WHERE status = 1";
     <div class="col-sm">
     <div class="card mt-2 mb-2" style="width: 18rem;">
     <div class="card-header">
-    <h5 class="card-title"> <?php echo $row['title'] ?></h5>
+    <h5 class="card-title"> <?php echo $row['displayname'] ?></h5>
+    <?php echo $row['fullname'] ?>
     </div>
-  <img src='../assets/images/uploads/posts/<?php echo $row["image"] ?>'  class="card-img-top" width="200" height="200" alt="...">
+  <img src='../assets/images/uploads/users/<?php echo $row["image"] ?>'  class="card-img-top" width="200" height="200" alt="...">
   <div class="card-body">
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <a href="#" class="btn btn-primary">Add Friend</a>
   </div>
 </div>
      

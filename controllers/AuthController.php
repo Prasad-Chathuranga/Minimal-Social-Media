@@ -13,7 +13,9 @@ if (isset($_POST['register'])) {
     // $image = $_POST['image'];
 
 
-    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+
     $db->busyTimeout(5000);
 
     $sql = 'INSERT INTO users(fullname, displayname, email, phone, password, description,image) 
@@ -48,8 +50,8 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
-    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
     $db->busyTimeout(5000);
     
     $sql = 'SELECT * FROM users WHERE email = :email 
@@ -75,8 +77,7 @@ if (isset($_POST['login'])) {
         header('location: ../user/dashboard.php');
        
     } else {
-        // $_SESSION['login_error'] = "Login Failed ! Invalid Input !!";
-        // header('location: index.php');
+      
 
         $sql = 'SELECT * FROM admin WHERE email = :email 
     AND password = :password ';
@@ -105,4 +106,74 @@ if (isset($_POST['login'])) {
     unset($db);
    
 }
+
+if (isset($_POST['activate'])) {
+
+    $status = 1;
+    $id = $_POST['id'];
+    // $status = 0;
+
+    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+
+    $db->busyTimeout(5000);
+
+    $statement_draw = $db->prepare("UPDATE users SET status=:status  WHERE id = :id ");
+        
+    $statement_draw->bindParam(':status', $status);
+    $statement_draw->bindParam(':id', intval($id));
+
+    $statement_draw->execute();
+
+    if ($statement_draw) {
+        $created = true;
+    }
+
+    $db->close();
+    unset($db);
+
+     if($created){
+        header("Location: ../admin/users.php");
+    }
+   
+}
+
+if (isset($_POST['deactivate'])) {
+
+
+    echo "dvd";
+
+    print_r($_POST);
+
+    $status = 0;
+    $id = $_POST['id'];
+    // $status = 0;
+
+
+    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+
+    $db->busyTimeout(5000);
+
+    $statement_draw = $db->prepare("UPDATE users SET status=:status  WHERE id = :id ");
+        
+    $statement_draw->bindParam(':status', $status);
+    $statement_draw->bindParam(':id', intval($id));
+
+    $statement_draw->execute();
+
+    if ($statement_draw) {
+        $created = true;
+    }
+
+    $db->close();
+    unset($db);
+
+     if($created){
+        header("Location: ../admin/users.php");
+    }
+   
+}
+
+?>
 
