@@ -28,28 +28,42 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
-        
 
-        <?php if(!$_SESSION['is_admin']) { 
+        <?php if(empty($_SESSION['is_admin'])) { 
          echo '<li class="nav-item mr-5">
          <a class="nav-link" href="../user/add-new-post.php">Add New Post</a>
        </li>';
           } ?>
 
-        <?php if($_SESSION['is_admin']) { 
+        <?php if(!empty($_SESSION['is_admin'])) { 
          echo '<li class="nav-item mr-5"><a class="nav-link" href="../admin/users.php">Users</a></li>';
           } ?>
 
-<?php if($_SESSION['is_admin']) { 
+<?php if(empty($_SESSION['is_admin'])) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../user/users-list.php">Friends</a></li>';
+          } ?>
+
+<?php if(!empty($_SESSION['is_admin'])) { 
          echo '<li class="nav-item mr-5"><a class="nav-link" href="../admin/dashboard.php">Posts</a></li>';
           } ?>
 
-<?php if($_SESSION['login_status']) { 
-         echo '<li class="nav-item mr-5"><a class="nav-link" href="../logout.php">Logout</a></li>';
+<?php if(empty($_SESSION['is_admin'])) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../user/dashboard.php">News Feed</a></li>';
           } ?>
 
-<?php if($_SESSION['login_status']) { 
-         echo '<li class="nav-item mr-5"><a class="nav-link" href="../user/friends-list.php">Friends</a></li>';
+          
+<?php if(empty($_SESSION['is_admin'])) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../user/friend-requests.php">Requests</a></li>';
+          } ?>
+
+
+
+<?php if(isset($_SESSION['login_status']) && $_SESSION['is_admin']  == false) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../user/friends-list.php">Your Friends</a></li>';
+          } ?>
+
+<?php if(isset($_SESSION['login_status'])) { 
+         echo '<li class="nav-item mr-5"><a class="nav-link" href="../logout.php">Logout</a></li>';
           } ?>
       </ul>
     </div>

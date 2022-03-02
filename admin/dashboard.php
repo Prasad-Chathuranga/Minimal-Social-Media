@@ -49,9 +49,9 @@ if($_SESSION['login_status'] == true && $_SESSION['is_admin'] == true){ ?>
   <tbody>
 
 <?php 
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
 
-  // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+  $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
   $db->busyTimeout(5000);
 
 $sql = "SELECT * FROM posts";

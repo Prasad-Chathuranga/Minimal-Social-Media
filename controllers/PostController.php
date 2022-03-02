@@ -9,8 +9,8 @@ if (isset($_POST['post'])) {
     $status = 0;
 
 
-    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
 
     $db->busyTimeout(5000);
 
@@ -58,8 +58,8 @@ if (isset($_POST['accept_post'])) {
     $id = $_POST['id'];
     // $status = 0;
 
-    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
 
     $db->busyTimeout(5000);
 
@@ -90,8 +90,8 @@ if (isset($_POST['decline_post'])) {
     // $status = 0;
 
 
-    // $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
 
     $db->busyTimeout(5000);
 

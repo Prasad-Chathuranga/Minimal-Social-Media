@@ -35,12 +35,12 @@ if( $_SESSION['login_status'] == true){ ?>
 <h4 class="text-center">Friends</h4>
   <div class="row mt-5">
 <?php 
-    $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
+    // $db = new SQLite3('C:\xampp\2022\htdocs\social\social.db');
 
-//   $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
+  $db = new SQLite3('C:\laragon\www\minimal-social-media\Minimal-Social-Media\social.db');
   $db->busyTimeout(5000);
 
-$sql = "SELECT * FROM users WHERE status = 1";
+$sql = "SELECT * FROM users as U INNER JOIN friends as F ON F.req_user_id = U.id WHERE F.status = 1";
     $results = $db->query($sql);
     while($row = $results->fetchArray(SQLITE3_ASSOC) ) {
          ?>
@@ -54,7 +54,11 @@ $sql = "SELECT * FROM users WHERE status = 1";
     </div>
   <img src='../assets/images/uploads/users/<?php echo $row["image"] ?>'  class="card-img-top" width="200" height="200" alt="...">
   <div class="card-body">
-    <a href="#" class="btn btn-primary">Add Friend</a>
+    <form action="../controllers/AuthController.php" method="POST">
+      <?php print_r($row)  ?>
+      <input type="hidden" name="id" value=<?php echo $row['id'] ?> />
+    <button type="submit" name="add_friend" class="btn btn-primary">Add Friend</button>
+    </form>
   </div>
 </div>
      
